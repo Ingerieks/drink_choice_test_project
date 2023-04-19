@@ -49,14 +49,13 @@ export default function Questionnaire() {
       method: "POST",
       headers: {
         Authorization: "token 9307bfd5fa011428ff198bb37547f979",
+        "content-type": "application/vnd.api+json",
       },
-      data: JSON.stringify(requestBody),
-      contentType: "application/vnd.api+json",
+      body: JSON.stringify(requestBody),
     })
       .then((response) => response.json())
       .then((responseBody) => {
         setDecision(responseBody);
-        console.log(responseBody);
       });
   };
 
@@ -64,7 +63,7 @@ export default function Questionnaire() {
     <>
       <form className="wrapper" onSubmit={handleSubmit}>
         <h1 className="form-title">Drink choice questionnaire</h1>
-        {questions.slice(0, 2).map((item) => (
+        {questions.map((item) => (
           <div key={item.name} className="field-items">
             <Field setAnswer={setAnswer} field={item}  />
           </div>
