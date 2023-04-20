@@ -2,12 +2,18 @@ body {
     font-family: poppins;
 }
 
+.page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 .wrapper {
     background-color: whitesmoke;
     border-radius: 2%;
     box-shadow: 1px 1px 5px #d1d1d1;
     width: 30vw;
-    margin: 1% 0 0 7%;
     padding: 2%;
 }
 
@@ -50,3 +56,4 @@ justify-content: center;
 .choice-field {
   margin-right: 9%;
 }
+

@@ -26,11 +26,10 @@ export default function Questionnaire() {
   const setAnswer = (fieldName, fieldValue) => {
     answers[fieldName] = fieldValue;
     setAnswers(answers);
-    console.log(answers);
   };
 
   //console.log(questions);
-   
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const requestBody = {
@@ -41,8 +40,8 @@ export default function Questionnaire() {
         },
       },
     };
-   
-    console.log(requestBody);
+
+    //console.log(requestBody);
 
     const url = "https://api.up2tom.com/v3/decision/58d3bcf97c6b1644db73ad12";
     fetch(url, {
@@ -55,17 +54,19 @@ export default function Questionnaire() {
     })
       .then((response) => response.json())
       .then((responseBody) => {
-        setDecision(responseBody);
+        setDecision(responseBody.data.attributes.decision);
       });
   };
 
+  console.log(decision);
+
   return (
-    <>
+    <div className="page">
       <form className="wrapper" onSubmit={handleSubmit}>
         <h1 className="form-title">Drink choice questionnaire</h1>
         {questions.map((item) => (
           <div key={item.name} className="field-items">
-            <Field setAnswer={setAnswer} field={item}  />
+            <Field setAnswer={setAnswer} field={item} />
           </div>
         ))}
         <div className="button-container">
@@ -77,7 +78,10 @@ export default function Questionnaire() {
           </button>
         </div>
       </form>
-    </>
+      <div>
+        <h1>{decision}</h1>
+      </div>
+    </div>
   );
 }
 
@@ -86,8 +90,14 @@ function Field(props) {
   if (props.field.type === "Continuous") {
     return (
       <div>
-        <ContinuousQuestionField field={props.field} setAnswer={props.setAnswer} />
-        <ContinuousChoiceField field={props.field} setAnswer={props.setAnswer}  />
+        <ContinuousQuestionField
+          field={props.field}
+          setAnswer={props.setAnswer}
+        />
+        <ContinuousChoiceField
+          field={props.field}
+          setAnswer={props.setAnswer}
+        />
       </div>
     );
   } else if (props.field.type === "Nominal") {
@@ -101,9 +111,3 @@ function Field(props) {
     console.log("Type not found");
   }
 }
-
-/*{questions.map((item) => (
-    <>
-    <p>{item}</p>
-    </>
-   ))}*/
