@@ -1,8 +1,5 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import { Poppins } from "next/font/google";
+
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import ContinuousQuestionField from "../components/continuousQuestionField";
 import NominalQuestionField from "../components/nominalQuestionField";
 import ContinuousChoiceField from "../components/continuousChoiceField";
@@ -55,30 +52,32 @@ export default function DisplayField() {
   };
 
   return (
-    <div className="flex flex-row justify-evenly mt-10">
-      <form
-        onSubmit={handleSubmit}
-        className="pt-6 pl-6 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2"
-      >
-        <h1 className="font-bold">{modelName}</h1>
-        {questions.map((item) => (
-          <div key={item.name} className="field-items">
-            <Field setAnswer={setAnswer} field={item} />
+    <>
+      <div className="flex flex-col place-items-center mt-10">
+        <form
+          onSubmit={handleSubmit}
+          className=" pt-6 pl-6 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-100"
+        >
+          <h1 className="font-bold text-3xl mb-3">{modelName}</h1>
+          {questions.map((item) => (
+            <div key={item.name} className="field-items">
+              <Field setAnswer={setAnswer} field={item} />
+            </div>
+          ))}
+          <div className="button-container">
+            <button
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-5"
+              type="submit"
+            >
+              Submit
+            </button>
           </div>
-        ))}
-        <div className="button-container">
-          <button
-            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-5"
-            type="submit"
-          >
-            Submit
-          </button>
+        </form>
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold">{decision}</h1>
         </div>
-      </form>
-      <div className="flex items-center">
-        <h1 className="text-5xl">{decision}</h1>
       </div>
-    </div>
+    </>
   );
 }
 
