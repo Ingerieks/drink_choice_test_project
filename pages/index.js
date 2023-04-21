@@ -14,7 +14,6 @@ export default function DisplayField() {
   const [decision, setDecision] = useState("");
   const [answers, setAnswers] = useState({});
   const [modelName, setModelName] = useState("");
-  const [reset, setReset] = useState([]);
   
 
   useEffect(() => {
@@ -38,6 +37,7 @@ export default function DisplayField() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+   
     const requestBody = {
       data: {
         type: "scenario",
@@ -46,24 +46,18 @@ export default function DisplayField() {
         },
       },
     };
-
-    const url = "https://api.up2tom.com/v3/decision/58d3bcf97c6b1644db73ad12";
+  
+    const url = "./api/decision";
     fetch(url, {
       method: "POST",
-      headers: {
-        Authorization: "token 9307bfd5fa011428ff198bb37547f979",
-        "content-type": "application/vnd.api+json",
-      },
       body: JSON.stringify(requestBody),
     })
       .then((response) => response.json())
       .then((responseBody) => {
-        console.log(responseBody);
-        setDecision(responseBody.data.attributes.decision);
+       setDecision(responseBody.data.attributes.decision);
       });
   };
 
- 
   return (
     <div className="flex flex-row justify-evenly mt-10">
       <form
@@ -82,12 +76,6 @@ export default function DisplayField() {
             type="submit"
           >
             Submit
-          </button>
-          <button
-            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-            type="submit"
-          >
-            Clear
           </button>
         </div>
       </form>
