@@ -8,18 +8,16 @@ import NominalQuestionField from "../components/nominalQuestionField";
 import ContinuousChoiceField from "../components/continuousChoiceField";
 import NominalChoiceField from "../components/nominalChoiceField";
 
-
 export default function DisplayField() {
   const [questions, setQuestions] = useState([]);
   const [decision, setDecision] = useState("");
   const [answers, setAnswers] = useState({});
   const [modelName, setModelName] = useState("");
-  
 
   useEffect(() => {
     const url = "./api/model";
     fetch(url, {
-      method: "GET"
+      method: "GET",
     })
       .then((response) => response.json())
       .then((responseBody) => {
@@ -33,11 +31,9 @@ export default function DisplayField() {
     setAnswers(answers);
   };
 
-  //console.log(questions);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+
     const requestBody = {
       data: {
         type: "scenario",
@@ -46,7 +42,7 @@ export default function DisplayField() {
         },
       },
     };
-  
+
     const url = "./api/decision";
     fetch(url, {
       method: "POST",
@@ -54,7 +50,7 @@ export default function DisplayField() {
     })
       .then((response) => response.json())
       .then((responseBody) => {
-       setDecision(responseBody.data.attributes.decision);
+        setDecision(responseBody.data.attributes.decision);
       });
   };
 
@@ -80,14 +76,13 @@ export default function DisplayField() {
         </div>
       </form>
       <div className="flex items-center">
-        <h1 className="text-5xl">{decision}</h1>    
+        <h1 className="text-5xl">{decision}</h1>
       </div>
     </div>
   );
 }
 
 function Field(props) {
-  //console.log(props.field);
   if (props.field.type === "Continuous") {
     return (
       <div>
