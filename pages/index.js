@@ -14,14 +14,13 @@ export default function DisplayField() {
   const [decision, setDecision] = useState("");
   const [answers, setAnswers] = useState({});
   const [modelName, setModelName] = useState("");
+  const [reset, setReset] = useState([]);
+  
 
   useEffect(() => {
-    const url = "https://api.up2tom.com/v3/models/58d3bcf97c6b1644db73ad12";
+    const url = "./api/model";
     fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: "token 9307bfd5fa011428ff198bb37547f979",
-      },
+      method: "GET"
     })
       .then((response) => response.json())
       .then((responseBody) => {
@@ -65,7 +64,6 @@ export default function DisplayField() {
   };
 
  
-
   return (
     <div className="flex flex-row justify-evenly mt-10">
       <form
@@ -80,13 +78,12 @@ export default function DisplayField() {
         ))}
         <div className="button-container">
           <button
-            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-5"
             type="submit"
           >
             Submit
           </button>
           <button
-            onClick={() => setAnswer()}
             className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
             type="submit"
           >
@@ -94,7 +91,7 @@ export default function DisplayField() {
           </button>
         </div>
       </form>
-      <div className="mt-20">
+      <div className="flex items-center">
         <h1 className="text-5xl">{decision}</h1>    
       </div>
     </div>
