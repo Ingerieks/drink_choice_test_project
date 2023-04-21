@@ -95,26 +95,7 @@ export default function DisplayField() {
         </div>
       </form>
       <div className="mt-20">
-        <h1 className="text-5xl">{decision}</h1>
-        <h2 className="mt-3">Was this recommendation accurate?</h2>
-        <button
-          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-4 mt-3"
-          type="submit"
-        >
-          yes
-        </button>
-        <button
-          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-4 mt-3"
-          type="submit"
-        >
-          no
-        </button>
-        <button
-          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-4 mt-3"
-          type="submit"
-        >
-          somewhat
-        </button>
+        <h1 className="text-5xl">{decision}</h1>    
       </div>
     </div>
   );
