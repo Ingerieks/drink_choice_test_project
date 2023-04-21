@@ -1,10 +1,15 @@
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { useState, useEffect } from "react";
-import ContinuousQuestionField from "./continuousQuestionField";
-import NominalQuestionField from "./nominalQuestionField";
-import ContinuousChoiceField from "./continuousChoiceField";
-import NominalChoiceField from "./nominalChoiceField";
+import { useForm } from "react-hook-form";
+import ContinuousQuestionField from "../components/continuousQuestionField";
+import NominalQuestionField from "../components/nominalQuestionField";
+import ContinuousChoiceField from "../components/continuousChoiceField";
+import NominalChoiceField from "../components/nominalChoiceField";
 
-export default function Questionnaire() {
+
+export default function DisplayField() {
   const [questions, setQuestions] = useState([]);
   const [decision, setDecision] = useState("");
   const [answers, setAnswers] = useState({});
@@ -20,8 +25,7 @@ export default function Questionnaire() {
     })
       .then((response) => response.json())
       .then((responseBody) => {
-        setModelName(responseBody.data.attributes.name)
-        //console.log(responseBody.data.attributes.name)
+        setModelName(responseBody.data.attributes.name);
         setQuestions(responseBody.data.attributes.metadata.attributes);
       });
   }, []);
@@ -44,8 +48,6 @@ export default function Questionnaire() {
       },
     };
 
-    //console.log(requestBody);
-
     const url = "https://api.up2tom.com/v3/decision/58d3bcf97c6b1644db73ad12";
     fetch(url, {
       method: "POST",
@@ -57,32 +59,62 @@ export default function Questionnaire() {
     })
       .then((response) => response.json())
       .then((responseBody) => {
+        console.log(responseBody);
         setDecision(responseBody.data.attributes.decision);
       });
   };
 
-  console.log(modelName);
+ 
 
   return (
-    <div className="page">
-      <form className="wrapper" onSubmit={handleSubmit}>
-        <h1 className="form-title">{modelName}</h1>
+    <div className="flex flex-row justify-evenly mt-10">
+      <form
+        onSubmit={handleSubmit}
+        className="pt-6 pl-6 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2"
+      >
+        <h1 className="font-bold">{modelName}</h1>
         {questions.map((item) => (
           <div key={item.name} className="field-items">
             <Field setAnswer={setAnswer} field={item} />
           </div>
         ))}
         <div className="button-container">
-          <button className="btn" type="submit">
+          <button
+            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+            type="submit"
+          >
             Submit
           </button>
-          <button className="btn" type="submit">
+          <button
+            onClick={() => setAnswer()}
+            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+            type="submit"
+          >
             Clear
           </button>
         </div>
       </form>
-      <div>
-        <h1>{decision}</h1>
+      <div className="mt-20">
+        <h1 className="text-5xl">{decision}</h1>
+        <h2 className="mt-3">Was this recommendation accurate?</h2>
+        <button
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-4 mt-3"
+          type="submit"
+        >
+          yes
+        </button>
+        <button
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-4 mt-3"
+          type="submit"
+        >
+          no
+        </button>
+        <button
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-4 mt-3"
+          type="submit"
+        >
+          somewhat
+        </button>
       </div>
     </div>
   );

@@ -6,17 +6,18 @@ export default function NominalChoiceField(props) {
 
   return (
     <>
-      <div className="nominal-choice-field">
+      <div key={props.field.name}>
         <div className="choice-field">
           {nominalOptions.map((option) => (
             <>
               <input
                 onChange={changeHandler}
+                className="mb-5 ml-5"
                 type="radio"
                 value={option}
                 name={props.field.name}
               />
-              <label>{option}</label>
+              <label className="ml-1">{option}</label>
             </>
           ))}
         </div>
